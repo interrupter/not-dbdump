@@ -84,7 +84,11 @@ class ncDBDump extends ncCRUD {
         this.removeWait();
         this.goList()
       })
-      .catch(this.error);
+      .catch((e)=>{
+        this.removeWait();
+        this.showErrorMessage({ error: e });
+        setTimeout(()=>this.goList(), 1000);
+      });
   }
 
   runRestore([fname]) {
@@ -99,7 +103,11 @@ class ncDBDump extends ncCRUD {
           this.removeWait();
           this.goList()
         })
-        .catch(this.error);
+        .catch((e)=>{
+          this.removeWait();
+          this.showErrorMessage({ error: e });
+          setTimeout(()=>this.goList(), 1000);
+        });
     } else {
       this.goList()
     }
@@ -117,7 +125,11 @@ class ncDBDump extends ncCRUD {
           this.removeWait();
           this.goList();
         })
-        .catch(this.error);
+        .catch((e)=>{
+          this.removeWait();
+          this.showErrorMessage({ error: e });
+          setTimeout(()=>this.goList(), 1000);
+        });
     } else {
       this.goList()
     }
