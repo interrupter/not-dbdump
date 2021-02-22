@@ -31,11 +31,11 @@ function dumpAction(script, fname) {
 }
 
 function createDump(fname) {
-  return dumpAction(path.resolve(__dirname, '../bin/dump.sh'), fname);
+  return dumpAction(path.resolve(__dirname, '../../../.bin/not-dump'), fname);
 }
 
 function restoreFromDump(fname) {
-  return dumpAction(path.resolve(__dirname, '../bin/restore.sh'), fname);
+  return dumpAction(path.resolve(__dirname, '../../../.bin/not-restore'), fname);
 }
 
 async function getFileInfo(path){

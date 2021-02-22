@@ -1,8 +1,12 @@
 {
 		"name": "not-dbdump",
-		"version": "0.0.1",
+		"version": "0.0.2",
 		"description": "not-* family module todump restore mongodb of project",
 		"main": "src/index.js",
+		"bin": {
+				"not-dump": "./src/bin/dump.sh",
+				"not-restore": "./src/bin/restore.sh"
+		},
 		"scripts": {
 				"lint": "/usr/local/bin/eslint --ext svelte3 ./src/**/**/**/**",
 				"pretest": "npm run lint",
