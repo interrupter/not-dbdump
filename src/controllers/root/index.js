@@ -12,9 +12,10 @@ let manifest = {
 	menu:{
 		side: {
 			items:[{
-				section: 'system',
-				title: 	'Дамп БД',
-				url: 	'/dbdump'
+				id: 			'system.dbdump',
+				section: 	'system',
+				title: 		'Дамп БД',
+				url: 			'/dbdump'
 			}]
 		}
 	}

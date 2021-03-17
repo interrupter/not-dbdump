@@ -2,7 +2,7 @@
   import {
     UIOverlay
   } from 'not-bulma';
-  
+
   export let message = 'Пожалуйста подождите пока операция будет завершена...';
   export let description = false;
 
@@ -38,7 +38,7 @@
     /* Blue */
     border-radius: 50%;
     width: 6em;
-    height: 5em;
+    height: 6em;
     animation: spin 2s linear infinite;
     margin: auto auto;
   }
