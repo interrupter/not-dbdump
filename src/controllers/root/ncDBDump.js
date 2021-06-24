@@ -23,7 +23,7 @@ class ncDBDump extends ncCRUD {
     this.setOptions('urlSchemes', schemes);
     this.setOptions('list', {
       interface: {
-        factory: this.getModel(),
+        factory: this.getInterface(),
           combined: true,
           combinedAction: 'listAndCount'
       },
@@ -79,7 +79,7 @@ class ncDBDump extends ncCRUD {
 
   runCreate() {
     this.showWait();
-    this.getModel()({}).$create()
+    this.getModel({}).$create()
       .then(() => {
         this.removeWait();
         this.goList()
@@ -94,7 +94,7 @@ class ncDBDump extends ncCRUD {
   runRestore([fname]) {
     if (confirm('Вы точно хотите восстановить данные из архива? Текущее состояние БД будет утеряно без возвратно.')) {
       this.showWait();
-      this.getModel()({
+      this.getModel({
           fname
         }).$restore({
           fname
@@ -116,7 +116,7 @@ class ncDBDump extends ncCRUD {
   runDelete([fname]) {
     if (confirm('Вы точно хотите безвозвратно удалить архив в данными?')) {
       this.showWait();
-      this.getModel()({
+      this.getModel({
           fname
         }).$delete({
           fname
