@@ -1,8 +1,11 @@
 import Validators from '../common/validators.js';
 import WaitPlease from '../common/wait.please.svelte';
+
 import {
-  ncCRUD
+  Frame
 } from 'not-bulma';
+
+const {notCRUD} = Frame;
 
 const LABELS = {
   plural: 'Дампы БД',
@@ -11,11 +14,26 @@ const LABELS = {
 
 const MODEL = 'dbdump';
 
-class ncDBDump extends ncCRUD {
+import CRUDActionCreate from './actions/create.js';
+import CRUDActionRestore from './actions/restore.js';
+import CRUDActionGet from './actions/get.js';
+import CRUDActionDelete from './actions/delete.js';
+
+const actions = {
+  create: CRUDActionCreate,
+  restore: CRUDActionRestore,
+  delete: CRUDActionDelete,
+  get: CRUDActionGet
+};
+
+class ncDBDump extends notCRUD {
   constructor(app, params, schemes) {
-    super(app, MODEL);
+
+    super(app, MODEL, {actions});
+
     this.setModuleName('');
     this.setModelName(MODEL);
+
     this.setOptions('names', LABELS);
     this.setOptions('Validators', Validators);
     this.setOptions('params', params);
@@ -75,69 +93,6 @@ class ncDBDump extends ncCRUD {
     });
     this.start();
     return this;
-  }
-
-  runCreate() {
-    this.showWait();
-    this.getModel({}).$create()
-      .then(() => {
-        this.removeWait();
-        this.goList()
-      })
-      .catch((e)=>{
-        this.removeWait();
-        this.showErrorMessage({ error: e });
-        setTimeout(()=>this.goList(), 1000);
-      });
-  }
-
-  runRestore([fname]) {
-    if (confirm('Вы точно хотите восстановить данные из архива? Текущее состояние БД будет утеряно без возвратно.')) {
-      this.showWait();
-      this.getModel({
-          fname
-        }).$restore({
-          fname
-        })
-        .then(() => {
-          this.removeWait();
-          this.goList()
-        })
-        .catch((e)=>{
-          this.removeWait();
-          this.showErrorMessage({ error: e });
-          setTimeout(()=>this.goList(), 1000);
-        });
-    } else {
-      this.goList()
-    }
-  }
-
-  runDelete([fname]) {
-    if (confirm('Вы точно хотите безвозвратно удалить архив в данными?')) {
-      this.showWait();
-      this.getModel({
-          fname
-        }).$delete({
-          fname
-        })
-        .then(() => {
-          this.removeWait();
-          this.goList();
-        })
-        .catch((e)=>{
-          this.removeWait();
-          this.showErrorMessage({ error: e });
-          setTimeout(()=>this.goList(), 1000);
-        });
-    } else {
-      this.goList()
-    }
-  }
-
-  runGet([fname]) {
-    window.location.assign(`/api/dbdump/get/${fname}`);
-    setTimeout(() => this.goList(), 100);
   }
 
   showWait() {

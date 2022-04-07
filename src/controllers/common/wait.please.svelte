@@ -1,7 +1,9 @@
 <script>
   import {
-    UIOverlay
+
   } from 'not-bulma';
+
+  const {UIOverlay} = Elements.Modals;
 
   export let message = 'Пожалуйста подождите пока операция будет завершена...';
   export let description = false;
