@@ -42,7 +42,9 @@ function getAppName(){
 }
 
 function getDateString(){
-  return new Date().toISOString().split('.')[0].split(' ').join(':')
+  const date = new Date().toISOString().split('.')[0].replace(/:/g, '-');
+  const parts = date.split(' ');
+  return parts.join('-');
 }
 
 function createDBDumpFilename(appname, date){

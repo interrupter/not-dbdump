@@ -1,12 +1,12 @@
 const config = require('not-config').createReader();
 const child_process = require('child_process');
 const fs = require('fs/promises');
-const filesize = require('filesize');
+const {filesize} = require('filesize');
 const path = require('path');
 
 function dumpAction(script, fname) {
   return new Promise((resolve, reject) => {
-    let opts = config.get('mongoose.options');
+    let opts = config.get('db.mongoose.options');
     child_process.execFile(
       script, //script to launch
       [

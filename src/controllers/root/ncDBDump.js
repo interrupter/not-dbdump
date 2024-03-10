@@ -67,14 +67,14 @@ class ncDBDump extends notCRUD {
         type: 'button',
         preprocessor: (value, item) => {
           return [{
-              action: this.runGet.bind(this, [item.name]),
+              action: ()=>this.runAction('get', [item.name]),
               type: 'info',
               title: 'Скачать',
               size: 'small',
               style: 'outlined'
             },
             {
-              action: this.runRestore.bind(this, [item.name]),
+              action: ()=>this.runAction('restore', [item.name]),
               type: 'warning',
               title: 'Восстановить',
               size: 'small',
