@@ -1,3 +1,5 @@
+import { MODULE_NAME } from "../../const.js";
+
 import Validators from "../common/validators.js";
 import WaitPlease from "../common/wait.please.svelte";
 
@@ -5,17 +7,13 @@ import { Frame } from "not-bulma";
 
 const { notCRUD } = Frame;
 
-const LABELS = {
-    plural: "Дампы БД",
-    single: "Дамп БД",
-};
-
-const MODEL = "dbdump";
+const MODEL_NAME = "dbdump";
 
 import CRUDActionCreate from "./actions/create.js";
 import CRUDActionRestore from "./actions/restore.js";
 import CRUDActionGet from "./actions/get.js";
 import CRUDActionDelete from "./actions/delete.js";
+import CRUDActionList from "not-bulma/src/frame/crud/actions/list.js";
 
 const actions = {
     create: CRUDActionCreate,
@@ -25,17 +23,33 @@ const actions = {
 };
 
 class ncDBDump extends notCRUD {
+    static get MODULE_NAME() {
+        return MODULE_NAME;
+    }
+
+    static get MODEL_NAME() {
+        return MODEL_NAME;
+    }
+
+    static get LABELS() {
+        return Object.freeze({
+            plural: "Дампы БД",
+            single: "Дамп БД",
+        });
+    }
+
     constructor(app, params, schemes) {
-        super(app, MODEL, { actions });
+        super(app, MODEL_NAME, { actions });
 
-        this.setModuleName("");
-        this.setModelName(MODEL);
+        this.setModuleName(ncDBDump.MODULE_NAME);
+        this.setModelName(ncDBDump.MODEL_NAME);
 
-        this.setOptions("names", LABELS);
+        this.setOptions("names", ncDBDump.LABELS);
         this.setOptions("Validators", Validators);
         this.setOptions("params", params);
         this.setOptions("role", "root");
         this.setOptions("urlSchemes", schemes);
+
         this.setOptions("list", {
             interface: {
                 factory: this.getInterface(),
@@ -66,33 +80,8 @@ class ncDBDump extends notCRUD {
                     path: ":_id",
                     title: "Действия",
                     type: "button",
-                    preprocessor: (value, item) => {
-                        return [
-                            {
-                                action: () =>
-                                    this.runAction("get", [item.name]),
-                                type: "info",
-                                title: "Скачать",
-                                size: "small",
-                                style: "outlined",
-                            },
-                            {
-                                action: () =>
-                                    this.runAction("restore", [item.name]),
-                                type: "warning",
-                                title: "Восстановить",
-                                size: "small",
-                                style: "outlined",
-                            },
-                            {
-                                action: () => this.goDelete(item.name),
-                                type: "danger",
-                                title: "Удалить",
-                                size: "small",
-                                style: "outlined",
-                            },
-                        ];
-                    },
+                    preprocessor: (value, item) =>
+                        CRUDActionList.createActionsButtons(this, value),
                 },
             ],
         });
