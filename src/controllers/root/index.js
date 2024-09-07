@@ -1,26 +1,19 @@
-import ncDBDump from './ncDBDump.js';
+import ncDBDump from "./ncDBDump.js";
 
 let manifest = {
-	router: {
-		manifest: [
-			{
-				paths: ['dbdump\/([^\/]+)\/([^\/]+)', 'dbdump\/([^\/]+)', 'dbdump'],
-				controller: ncDBDump
-			},
-		]
-	},
-	menu:{
-		side: {
-			items:[{
-				id: 			'system.dbdump',
-				section: 	'system',
-				title: 		'Дамп БД',
-				url: 			'/dbdump'
-			}]
-		}
-	}
+    router: {
+        manifest: [
+            {
+                paths: ["dbdump/([^/]+)/([^/]+)", "dbdump/([^/]+)", "dbdump"],
+                controller: ncDBDump,
+            },
+        ],
+    },
+    menu: {
+        side: {
+            items: [...ncDBDump.getMenu({ section: "system" })],
+        },
+    },
 };
 
-export {
-	manifest
-};
+export { manifest };

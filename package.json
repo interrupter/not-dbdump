@@ -1,6 +1,6 @@
 {
 	"name": "not-dbdump",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"description": "not-* family module to dump/restore mongodb of project",
 	"main": "src/index.js",
 	"bin": {
