@@ -13,7 +13,6 @@ import CRUDActionCreate from "./actions/create.js";
 import CRUDActionRestore from "./actions/restore.js";
 import CRUDActionGet from "./actions/get.js";
 import CRUDActionDelete from "./actions/delete.js";
-import CRUDActionList from "not-bulma/src/frame/crud/actions/list.js";
 
 const actions = {
     create: CRUDActionCreate,
@@ -80,8 +79,30 @@ class ncDBDump extends notCRUD {
                     path: ":_id",
                     title: "Действия",
                     type: "button",
-                    preprocessor: (value, item) =>
-                        CRUDActionList.createActionsButtons(this, value),
+                    preprocessor: (value, item) => [
+                        {
+                            action: () => this.runAction("get", [item.name]),
+                            type: "info",
+                            title: "Скачать",
+                            size: "small",
+                            style: "outlined",
+                        },
+                        {
+                            action: () =>
+                                this.runAction("restore", [item.name]),
+                            type: "warning",
+                            title: "Восстановить",
+                            size: "small",
+                            style: "outlined",
+                        },
+                        {
+                            action: () => this.goDelete(item.name),
+                            type: "danger",
+                            title: "Удалить",
+                            size: "small",
+                            style: "outlined",
+                        },
+                    ],
                 },
             ],
         });

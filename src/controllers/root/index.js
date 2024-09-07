@@ -2,12 +2,7 @@ import ncDBDump from "./ncDBDump.js";
 
 let manifest = {
     router: {
-        manifest: [
-            {
-                paths: ["dbdump/([^/]+)/([^/]+)", "dbdump/([^/]+)", "dbdump"],
-                controller: ncDBDump,
-            },
-        ],
+        manifest: [ncDBDump.getRoutes()],
     },
     menu: {
         side: {
