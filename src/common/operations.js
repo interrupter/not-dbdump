@@ -6,6 +6,7 @@ const path = require("path");
 
 const {
     SETUP_DUMP_NAME_TEST_REG,
+    TEST_DUMP_NAME_TEST_REG,
     DUMP_FILE_EXT,
     RESTORED_DUMP_FILE_NAME_MARK,
 } = require("../const");
@@ -82,8 +83,22 @@ function setupDumpIsAvailable(list) {
     return list.find((element) => isSetup(element.name));
 }
 
+/**
+ * Test items of list. If some item has name of test dump - returns this item
+ *
+ * @param {Array<Object>} list
+ * @return {false | Object}
+ */
+function testDumpIsAvailable(list) {
+    return list.find((element) => isTest(element.name));
+}
+
 function isSetup(name) {
     return SETUP_DUMP_NAME_TEST_REG.test(name);
+}
+
+function isTest(name) {
+    return TEST_DUMP_NAME_TEST_REG.test(name);
 }
 
 /**
@@ -119,6 +134,8 @@ module.exports = {
     removeDump,
     listDumps,
     setupDumpIsAvailable,
+    testDumpIsAvailable,
     markNameAsRestored,
     isSetup,
+    isTest,
 };

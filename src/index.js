@@ -4,4 +4,6 @@ module.exports = {
         controllers: __dirname + "/controllers",
         routes: __dirname + "/routes",
     },
+    InitDBDumpRestoreForTesting: require("./init/initDBDumpRestoreForTesting"),
+    InitDBDumpSetup: require("./init/initDBDumpSetup"),
 };
