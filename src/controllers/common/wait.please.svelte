@@ -3,12 +3,12 @@
 
     const { UIOverlay } = Elements.Modals;
 
-    export let message =
-        "Пожалуйста подождите пока операция будет завершена...";
-    export let description = false;
-
-    export let result = false;
-    export let result_style = false;
+    let {
+        message = "Пожалуйста подождите пока операция будет завершена...",
+        description = false,
+        result = false,
+        result_style = false,
+    } = $props();
 </script>
 
 <UIOverlay show={true} closeOnClick={false} closeButton={false}>

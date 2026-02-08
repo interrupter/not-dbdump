@@ -1,7 +1,9 @@
 import { MODULE_NAME } from "../../const.js";
 
+import { UIAdapterSvelte } from "not-bulma/src/frame/index.js";
+
 import Validators from "../common/validators.js";
-import WaitPlease from "../common/wait.please.svelte";
+import UIWaitPlease from "../common/wait.please.svelte";
 
 import { Frame } from "not-bulma";
 
@@ -111,9 +113,7 @@ class ncDBDump extends notCRUD {
     }
 
     showWait() {
-        this.ui.wait = new WaitPlease({
-            target: document.body,
-        });
+        this.ui.wait = new UIAdapterSvelte(UIWaitPlease, document.body, {});
     }
 
     removeWait() {
