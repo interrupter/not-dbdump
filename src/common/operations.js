@@ -61,6 +61,7 @@ async function listDumps(pathToDumps) {
                 path.join(pathToDumps, dirent.name)
             );
             list.push({
+                _id: Math.random(),
                 name: dirent.name,
                 size: filesize(fileInfo.size),
                 created: fileInfo.birthtime,
