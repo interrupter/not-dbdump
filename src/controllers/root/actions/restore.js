@@ -2,6 +2,10 @@ const ACTION = "restore";
 const MODEL_ACTION = "restore";
 
 export default class CRUDActionRestore {
+    static getDelay(controller){
+        return controller.app.getOptions('modules.dbdump.pageReloadDelay', 1000);
+    }
+
     static async run(controller, [fname] = []) {
         try {
             if (
@@ -13,18 +17,27 @@ export default class CRUDActionRestore {
                 await controller
                     .getModel({
                         fname,
-                    })
-                    [`$${MODEL_ACTION}`]({
+                    })[`$${MODEL_ACTION}`]({
                         fname,
                     });
-                controller.removeWait();
-            }
-            controller.goList();
+                setTimeout(
+                    () => {
+                        controller.removeWait();
+                        controller.goList()
+                    }, 
+                    this.getDelay(controller)
+                );
+            }else{
+                controller.goList();
+            }            
         } catch (e) {
             controller.removeWait();
             controller.report(e);
             controller.showErrorMessage(e);
-            setTimeout(() => controller.goList(), 1000);
+            setTimeout(
+                () => controller.goList(), 
+                this.getDelay(controller)
+            );
         }
     }
 }
